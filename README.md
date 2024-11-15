@@ -97,11 +97,40 @@ GND is the ground pin.
 
 
 ## STM 32 CUBE PROGRAM :
+```
+int adc_val;
+ while (1)
+  {
+    HAL_ADC_Start(&hadc);
+                           HAL_ADC_PollForConversion(&hadc,100);
+                           adc_val = HAL_ADC_GetValue(&hadc);
+                           HAL_ADC_Stop(&hadc);
+                           HAL_Delay(500);
+
+                           uint32_t soilmoist;
+    soilmoist=adc_val/10.24;
+                           printf("soilmoisture :%ld\n",soilmoist);
+                           if(adc_val<500)
+                           {
+                        	   HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, GPIO_PIN_RESET);
+                           }
+                           if(adc_val>500)
+                           {
+                        	   HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, GPIO_PIN_SET);
+                           }
+
+
+
+  }
+
+```
 
 
 
 ## Output screen shots on serial monitor   :
- 
+
+ ![image](https://github.com/user-attachments/assets/d6929255-316f-40cd-9205-9201cf0bdfe4)
+
  
  
  
